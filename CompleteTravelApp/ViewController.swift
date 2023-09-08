@@ -13,7 +13,6 @@ class ViewController: UIViewController {
         return LocationModel.featuredData
     }()
 
-
     lazy var recommendedLocationData: [LocationModel] = {
         return LocationModel.recommendData
     }()
@@ -25,6 +24,7 @@ class ViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell ")
         tableView.rowHeight = CGFloat(396.0)
         tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         return tableView
     }()
 
@@ -35,7 +35,30 @@ class ViewController: UIViewController {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
+        tableView.dataSource = self
+        tableView.delegate = self
     }
 
 }
 
+//MARK: - Table Delegates and Methods
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(396.0)
+    }
+    
+}
