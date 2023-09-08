@@ -9,11 +9,22 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
+    lazy var featuredLocation: [LocationModel] = {
+        return LocationModel.featuredData
+    }()
+
+
+    lazy var recommendedLocationData: [LocationModel] = {
+        return LocationModel.recommendData
+    }()
+
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell ")
+        tableView.rowHeight = CGFloat(396.0)
+        tableView.tableFooterView = UIView()
         return tableView
     }()
 
