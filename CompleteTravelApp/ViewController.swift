@@ -9,18 +9,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        setupUI()
     }
     
     func setupUI() {
-        
+        view.backgroundColor = .systemBackground
     }
 
 }
