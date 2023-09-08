@@ -9,11 +9,15 @@ import UIKit
 
 class FeaturedTableViewCell: UITableViewCell {
     
-    var topLocationsData: [LocationModel] = [LocationModel]() {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    public static let identifier = "FeaturedTableViewCell"
+    
+    var tops = [TopLocation]()
+    
+//    var topLocationsData: [TopLocation] = [TopLocation]() {
+//        didSet {
+//            collectionView.reloadData()
+//        }
+//    }
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,23 +26,42 @@ class FeaturedTableViewCell: UITableViewCell {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsFocus = false
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(TopLocationCollectionViewCell.self, forCellWithReuseIdentifier: TopLocationCollectionViewCell.identifier)
         return collectionView
     }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupUI()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        setupUI()
+        
     }
     
+    func configure(with topLocationsData: [TopLocation]) {
+            self.tops = topLocationsData
+            collectionView.reloadData()
+        }
     
     func setupUI() {
+        contentView.addSubview(collectionView)
         collectionView.dataSource = self
         collectionView.delegate = self
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        let collectionViewConstraints = [
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(collectionViewConstraints)
     }
 
 }
@@ -48,15 +71,24 @@ class FeaturedTableViewCell: UITableViewCell {
 extension FeaturedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return tops.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = UICollectionViewCell()
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopLocationCollectionViewCell.identifier, for: indexPath) as? TopLocationCollectionViewCell else {
+            print("Could not dequeue TopLocationCollectionViewCell")
+            return UICollectionViewCell()
+        }
+                
+        cell.configure(with: tops[indexPath.row])
+        cell.topImageView.image = tops[indexPath.row].locationImage
+                
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: contentView.frame.width, height: 396)
+        let width = contentView.frame.width
+        return CGSize(width: width, height: 370)
     }
 }

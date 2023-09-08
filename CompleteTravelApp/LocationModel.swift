@@ -7,15 +7,13 @@
 
 import UIKit
 
-
-
 class LocationModel {
     
-    static let featuredData: [LocationModel] = [
-        LocationModel(locationTitle: "Clifton Beach Apartment", locationSubTitle: "PRIVATE 1 ROOM", locationPrice: "$104 per night", locationImage: UIImage(named: "1bedroomapartment")!),
-        LocationModel(locationTitle: "Medteranean Villa Apartment", locationSubTitle: "ENTIRE VILLA 4 BEDS", locationPrice: "$168 per night", locationImage: UIImage(named: "medteraneanvilla")!),
-        LocationModel(locationTitle: "City Penthouse", locationSubTitle: "ENTIRE APARTMENT", locationPrice: "$119 per night", locationImage: UIImage(named: "citypenthouse")!)
-    ]
+//    static let featuredData: [LocationModel] = [
+//        LocationModel(locationTitle: "Clifton Beach Apartment", locationSubTitle: "PRIVATE 1 ROOM", locationPrice: "$104 per night", locationImage: UIImage(named: "1bedroomapartment")!),
+//        LocationModel(locationTitle: "Medteranean Villa Apartment", locationSubTitle: "ENTIRE VILLA 4 BEDS", locationPrice: "$168 per night", locationImage: UIImage(named: "mediteraneanvilla")!),
+//        LocationModel(locationTitle: "City Penthouse", locationSubTitle: "ENTIRE APARTMENT", locationPrice: "$119 per night", locationImage: UIImage(named: "citypenthouse")!)
+//    ]
     
     
     static let recommendData: [LocationModel] = [
